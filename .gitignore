@@ -31,6 +31,10 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/ios/Podfile
+/pubspec.lock
+/.idea/
+/.vscode/
 
 # Symbolication related
 app.*.symbols
