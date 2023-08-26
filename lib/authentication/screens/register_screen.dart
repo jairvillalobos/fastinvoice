@@ -54,65 +54,119 @@ class RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Registro'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration:
-                    const InputDecoration(labelText: 'Nombre de usuario'),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor ingrese su nombre de usuario';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _emailController,
-                decoration:
-                    const InputDecoration(labelText: 'Correo electrónico'),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor ingrese su correo electrónico';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Contraseña'),
-                obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor ingrese su contraseña';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _register,
-                child: const Text('Registrarse'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/login'),
-                child:
-                    const Text('¿Ya tienes una cuenta? Inicia sesión'),
-              ),
-            ],
+ @override
+Widget build(BuildContext context) {
+  return SafeArea(
+    child: Scaffold(
+      body: Container(
+        margin: const EdgeInsets.all(24),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _header(context),
+                const SizedBox(height: 100), // Add space between header and input fields
+                _inputField(context),
+                _signup(context),
+              ],
+            ),
           ),
         ),
       ),
+    ),
+  );
+}
+
+
+  _header(context) {
+    return const Column(
+      children: [
+        Text(
+          "Registro",
+          style: TextStyle(fontSize: 40,  fontWeight: FontWeight.bold),
+        ),
+        Text("Ingresa tus datos para registrarte"),
+      ],
     );
+  }
+
+  _inputField(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextFormField(
+          controller: _usernameController,
+          decoration: InputDecoration(
+              hintText: "Nombre de usuario",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.person)),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Por favor ingrese su nombre de usuario';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _emailController,
+          decoration: InputDecoration(
+              hintText: "Correo electrónico",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.email)),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Por favor ingrese su correo electrónico';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _passwordController,
+          decoration: InputDecoration(
+              hintText: "Contraseña",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.lock)),
+          obscureText: true,
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Por favor ingrese su contraseña';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 10),
+        ElevatedButton(
+            onPressed: _register,
+            style: ElevatedButton.styleFrom(
+                shape: const StadiumBorder(),
+                padding: const EdgeInsets.symmetric(vertical: 16)),
+            child: const Text("Registrarse", style: TextStyle(fontSize: 20))),
+      ],
+    );
+  }
+
+  _signup(context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      const Text("¿Ya tienes una cuenta? "),
+      TextButton(
+          onPressed: () => Navigator.pushNamed(context, '/login'),
+          child: const Text("Inicia sesión"))
+    ]);
   }
 }

@@ -41,7 +41,9 @@ class LoginScreenState extends State<LoginScreen> {
       } else if (response.statusCode == 401) {
         // Unauthorized: incorrect email or password
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Error: correo electrónico o contraseña incorrectos')),
+          const SnackBar(
+              content:
+                  Text('Error: correo electrónico o contraseña incorrectos')),
         );
       } else {
         // Other server error
@@ -54,52 +56,105 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Iniciar sesión'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _emailController,
-                decoration:
-                    const InputDecoration(labelText: 'Correo electrónico'),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor ingrese su correo electrónico';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Contraseña'),
-                obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor ingrese su contraseña';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _login,
-                child: const Text('Iniciar sesión'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/register'),
-                child:
-                    const Text('¿No tienes una cuenta? Registrate'),
-              ),
-            ],
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          margin: const EdgeInsets.all(24),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _header(context),
+                _inputField(context),
+                _forgotPassword(context),
+                _signup(context),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  _header(context) {
+    return const Column(
+      children: [
+        Text(
+          "Iniciar sesión",
+          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+        ),
+        Text("Ingrese su credencial para iniciar"),
+      ],
+    );
+  }
+
+  _inputField(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextFormField(
+          controller: _emailController,
+          decoration: InputDecoration(
+              hintText: "Correo electrónico",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.person)),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Por favor ingrese su correo electrónico';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _passwordController,
+          decoration: InputDecoration(
+              hintText: "Contraseña",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.key)),
+          obscureText: true,
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Por favor ingrese su contraseña';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: _login,
+          style: ElevatedButton.styleFrom(
+              shape: const StadiumBorder(),
+              padding: const EdgeInsets.symmetric(vertical: 16)),
+          child: const Text("Iniciar sesión", style: TextStyle(fontSize: 20)),
+        )
+      ],
+    );
+  }
+
+  _forgotPassword(context) {
+    return const TextButton(onPressed: null, child: Text("¿Has olvidado tu contraseña?"));
+  }
+
+  _signup(context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("¿No tienes una cuenta?"),
+        TextButton(
+          onPressed: () => Navigator.pushNamed(context, '/register'),
+          child: const Text("Regístrate"),
+        ),
+      ],
     );
   }
 }
