@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fastinvoice/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -165,7 +166,7 @@ Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       const Text("¿Ya tienes una cuenta? "),
       TextButton(
-          onPressed: () => Navigator.pushNamed(context, '/login'),
+          onPressed: () => Navigator.pushNamed(context, AppRoutes.loginScreen),
           child: const Text("Inicia sesión"))
     ]);
   }

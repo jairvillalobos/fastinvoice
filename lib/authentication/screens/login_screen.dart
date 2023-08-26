@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:fastinvoice/invoices/screens/invoice_screen.dart';
+import 'package:fastinvoice/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,13 +29,22 @@ class LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
 
       if (response.statusCode == 200) {
-        // Login successful
-        // For example, display a success message and redirect the user to the home screen
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Inicio de sesión exitoso')),
-        );
-        //Navigator.pushNamed(context, '/home');
-      } else if (response.statusCode == 400) {
+      // Login successful
+      // For example, display a success message and redirect the user to the home screen
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Inicio de sesión exitoso')),
+      );
+      // Extract token from response
+      Map<String, dynamic> data = json.decode(response.body);
+      String token = data['token'];
+      // Navigate to InvoiceList screen and pass token as argument
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InvoiceList(token: token),
+        ),
+      );
+    } else if (response.statusCode == 400) {
         // Bad request
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Error: solicitud incorrecta')),
@@ -151,7 +162,7 @@ class LoginScreenState extends State<LoginScreen> {
       children: [
         const Text("¿No tienes una cuenta?"),
         TextButton(
-          onPressed: () => Navigator.pushNamed(context, '/register'),
+          onPressed: () => Navigator.pushNamed(context, AppRoutes.registerScreen),
           child: const Text("Regístrate"),
         ),
       ],
