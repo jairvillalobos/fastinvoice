@@ -35,7 +35,7 @@ class RegisterScreenState extends State<RegisterScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Registro exitoso')),
         );
-        Navigator.pushNamed(context, '/login');
+        Navigator.pushNamed(context, AppRoutes.loginScreen);
       } else if (response.statusCode == 400) {
         // Solicitud incorrecta
         ScaffoldMessenger.of(context).showSnackBar(
