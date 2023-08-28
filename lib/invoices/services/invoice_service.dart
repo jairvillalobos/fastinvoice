@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fastinvoice/constants/api_endpoints.dart';
 import 'package:http/http.dart' as http;
 
 class Result<T, E> {
@@ -12,7 +13,7 @@ class Result<T, E> {
 }
 
 class InvoiceService {
-  static const String apiUrl = 'http://10.0.2.2:8000/v1/invoices';
+  
 
   static Future<Result<Map<String, dynamic>, String>> fetchInvoices({
     required String token,
@@ -21,7 +22,7 @@ class InvoiceService {
   }) async {
     try {
       var response = await http.get(
-        Uri.parse('$apiUrl?page=$page&limit=$limit'),
+        Uri.parse('${ApiEndpoints.invoice}?page=$page&limit=$limit'),
         headers: {'Authorization': 'Bearer $token'},
       );
 
