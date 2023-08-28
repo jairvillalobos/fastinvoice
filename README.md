@@ -45,7 +45,9 @@ lib/
 │   └── home_screen.dart
 ├── widgets/
 │   └── bottom_navigation_bar.dart
-├── styles/ # new directory for styles
-├── constants/ # new directory for constants
+├── styles/
+├── └── text_styles.dart
+├── constants/ 
+├── └── api_endpoints.dart
 └── main.dart
 ```

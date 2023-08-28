@@ -1,11 +1,11 @@
-import 'package:fastinvoice/invoices/screens/invoice_screen.dart';
+import 'package:fastinvoice/invoices/screens/invoice_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fastinvoice/widgets/bottom_navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   final String userToken;
 
-  const HomeScreen({super.key, required this.userToken});
+  const HomeScreen({Key? key, required this.userToken}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => InvoiceList(token: userToken),
+                builder: (context) => InvoiceListScreen(token: userToken),
               ),
             );
           }

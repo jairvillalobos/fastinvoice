@@ -1,6 +1,6 @@
 import 'package:fastinvoice/authentication/screens/login_screen.dart';
 import 'package:fastinvoice/authentication/screens/register_screen.dart';
-//import 'package:fastinvoice/invoices/screens/invoice_screen.dart';
+//import 'package:fastinvoice/invoices/screens/invoice_list_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
