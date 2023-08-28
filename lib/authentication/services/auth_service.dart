@@ -1,11 +1,16 @@
 import 'dart:convert';
+import 'package:fastinvoice/constants/api_endpoints.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
+  String _token = '';
+
+  String get token => _token;
+
   String errorMessage = '';
 
   Future<String> login(String email, String password) async {
-    var url = Uri.parse('http://10.0.2.2:8000/v1/login');
+    var url = Uri.parse(ApiEndpoints.login);
     var response = await http.post(url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
@@ -17,8 +22,8 @@ class AuthService {
       // Login successful
       // Extract token from response
       Map<String, dynamic> data = json.decode(response.body);
-      String token = data['token'];
-      return token;
+      _token = data['token'];
+      return _token;
     } else if (response.statusCode == 400) {
       // Bad request
       throw Exception('Error: solicitud incorrecta');
@@ -31,9 +36,9 @@ class AuthService {
       throw Exception('Server error: ${response.statusCode}');
     }
   }
-  
+
   Future<bool> register(String username, String email, String password) async {
-    var url = Uri.parse('http://10.0.2.2:8000/v1/register');
+    var url = Uri.parse(ApiEndpoints.register);
     var response = await http.post(url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({

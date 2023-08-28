@@ -1,11 +1,11 @@
 import 'package:fastinvoice/routes/app_routes.dart';
+import 'package:fastinvoice/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fastinvoice/authentication/controllers/login_controller.dart';
 import 'package:fastinvoice/authentication/widgets/header.dart';
 import 'package:fastinvoice/authentication/widgets/input_field.dart';
 import 'package:fastinvoice/authentication/widgets/forgot_password.dart';
 import 'package:fastinvoice/authentication/widgets/signup.dart';
-import 'package:fastinvoice/invoices/screens/invoice_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,28 +21,32 @@ class LoginScreenState extends State<LoginScreen> {
   final _loginController = LoginController();
 
   void _login() async {
-    if (_formKey.currentState!.validate()) {
-      bool success = await _loginController.login(
-        _emailController.text,
-        _passwordController.text,
+  if (_formKey.currentState!.validate()) {
+    bool success = await _loginController.login(
+      _emailController.text,
+      _passwordController.text,
+    );
+    if (!mounted) return;
+    if (success) {
+      // Inicio de sesión exitoso
+      // Obtiene el token del controlador LoginController
+      String userToken = _loginController.token;
+      // Navega a la pantalla de inicio y pasa el token de usuario
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(userToken: userToken),
+        ),
       );
-      if (!mounted) return;
-      if (success) {
-        // Login successful
-        // For example, display a success message and redirect the user to the home screen
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => InvoiceList(token: _loginController.token),
-          ),
-        );
-      } else {
-        // Login failed
-        // For example, display an error message
-        final snackBar = SnackBar(content: Text(_loginController.errorMessage));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
+    } else {
+      // Inicio de sesión fallido
+      // Por ejemplo, muestra un mensaje de error
+      final snackBar = SnackBar(content: Text(_loginController.errorMessage));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
+}
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -39,5 +39,13 @@ lib/
 │   ├── widgets/
 │   ├── controllers/
 │   └── services/
+├── routes/
+│   └── app_routes.dart
+├── screens/
+│   └── home_screen.dart
+├── widgets/
+│   └── bottom_navigation_bar.dart
+├── styles/ # new directory for styles
+├── constants/ # new directory for constants
 └── main.dart
 ```
