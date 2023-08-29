@@ -1,8 +1,8 @@
+import 'package:fastinvoice/authentication/widgets/login.dart';
 import 'package:fastinvoice/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:fastinvoice/authentication/widgets/header.dart';
 import 'package:fastinvoice/authentication/widgets/input_field.dart';
-import 'package:fastinvoice/authentication/widgets/signup.dart';
 import 'package:fastinvoice/authentication/controllers/register_controller.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -66,7 +66,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                     passwordController: _passwordController,
                     onRegisterPressed: _register,
                   ),
-                  const Signup(
+                  const Login(
                     text: '¿Ya tienes una cuenta? ',
                     routeName: AppRoutes.loginScreen,
                   ),

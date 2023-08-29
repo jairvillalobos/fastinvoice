@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Signup extends StatelessWidget {
+class Login extends StatelessWidget {
   final String text;
   final String routeName;
 
-  const Signup({
+  const Login({
     Key? key,
     required this.text,
     required this.routeName,
@@ -16,7 +16,7 @@ class Signup extends StatelessWidget {
       Text(text),
       TextButton(
           onPressed: () => Navigator.pushNamed(context, routeName),
-          child: const Text("Registrate"))
+          child: const Text("Inicia sesión"))
     ]);
   }
 }
