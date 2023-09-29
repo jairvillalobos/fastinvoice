@@ -1,4 +1,6 @@
 import 'package:fastinvoice/invoices/screens/invoice_list_screen.dart';
+import 'package:fastinvoice/users/screens/user_profile_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fastinvoice/widgets/bottom_navigation_bar.dart';
 
@@ -24,6 +26,14 @@ class HomeScreen extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => InvoiceListScreen(token: userToken),
+              ),
+            );
+          } else if (index == 2) {
+            // asumiendo que el índice 2 corresponde al perfil del usuario
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UserProfileScreen(token: userToken),
               ),
             );
           }
